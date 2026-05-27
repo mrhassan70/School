@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Imperial Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #111827;
+      overflow-x: hidden;
+    }
+
+    h1,h2,h3,h4 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 999;
+      padding: 18px 0;
+      transition: 0.4s;
+    }
+
+    nav.scrolled {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 30px;
+      font-weight: 700;
+      color: #1e3a8a;
+    }
+
+    .logo span {
+      color: #d4af37;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #111827;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #2563eb;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 40px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.4s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg,#1e40af,#2563eb);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(37,99,235,0.3);
+    }
+
+    .btn-gold {
+      background: #d4af37;
+      color: #111827;
+    }
+
+    /* Hero */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1600&q=80') center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+
+    .hero-content {
+      animation: fadeUp 1.5s ease;
+    }
+
+    .hero h1 {
+      font-size: 70px;
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+
+    .hero h1 span {
+      color: #d4af37;
+    }
+
+    .hero p {
+      font-size: 22px;
+      max-width: 700px;
+      margin: auto;
+      margin-bottom: 40px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    section {
+      padding: 110px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title span {
+      color: #d4af37;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .section-title h2 {
+      font-size: 50px;
+      margin-top: 10px;
+      color: #111827;
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+      gap: 50px;
+      align-items: center;
+    }
+
+    .about-grid img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    }
+
+    .about-text p {
+      line-height: 1.8;
+      color: #4b5563;
+      margin-bottom: 20px;
+    }
+
+    .stats {
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap: 30px;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      transition: 0.4s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .stat-card i {
+      font-size: 34px;
+      color: #2563eb;
+      margin-bottom: 20px;
+    }
+
+    .stat-card h3 {
+      font-size: 42px;
+      color: #1e3a8a;
+    }
+
+    /* Programs */
+    .programs {
+      background: #f8fafc;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      transition: 0.4s;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+    }
+
+    .card-top {
+      height: 6px;
+      background: linear-gradient(90deg,#1e3a8a,#2563eb);
+    }
+
+    .card-content {
+      padding: 35px;
+    }
+
+    .card-content i {
+      font-size: 40px;
+      color: #2563eb;
+      margin-bottom: 20px;
+    }
+
+    .card-content h3 {
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+
+    .card-content p {
+      color: #6b7280;
+      line-height: 1.7;
+    }
+
+    /* Campus */
+    .campus-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+      gap: 25px;
+    }
+
+    .campus-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      height: 380px;
+    }
+
+    .campus-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.5s;
+    }
+
+    .campus-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .campus-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top,rgba(0,0,0,0.8),transparent);
+      display: flex;
+      align-items: end;
+      padding: 25px;
+      color: white;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      background: #f8fafc;
+      text-align: center;
+    }
+
+    .testimonial-box {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 50px;
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .testimonial-box p {
+      font-size: 22px;
+      line-height: 1.8;
+      margin-bottom: 25px;
+      color: #374151;
+    }
+
+    /* Gallery */
+    .gallery-grid {
+      columns: 3 250px;
+      column-gap: 18px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      margin-bottom: 18px;
+      border-radius: 20px;
+      transition: 0.4s;
+      cursor: pointer;
+    }
+
+    .gallery-grid img:hover {
+      transform: scale(0.98);
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+      gap: 50px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 16px;
+      margin-bottom: 18px;
+      border-radius: 12px;
+      border: 1px solid #d1d5db;
+      font-size: 16px;
+    }
+
+    .contact-info div {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    iframe {
+      width: 100%;
+      border: none;
+      border-radius: 20px;
+      height: 300px;
+      margin-top: 20px;
+    }
+
+    /* Footer */
+    footer {
+      background: #111827;
+      color: white;
+      padding: 60px 0 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    footer h4 {
+      margin-bottom: 20px;
+    }
+
+    footer ul {
+      list-style: none;
+    }
+
+    footer ul li {
+      margin-bottom: 10px;
+      color: #d1d5db;
+    }
+
+    .copyright {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 20px;
+      text-align: center;
+      color: #9ca3af;
+    }
+
+    /* Scroll animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(60px);
+      transition: 1s;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Chat Button */
+    .chat-btn {
+      position: fixed;
+      right: 25px;
+      bottom: 25px;
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: white;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      animation: float 2s infinite;
+      z-index: 999;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    @media(max-width:768px) {
+      .hero h1 {
+        font-size: 48px;
+      }
+
+      .section-title h2 {
+        font-size: 36px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="container nav-content">
+      <div class="logo">Imperial <span>Academy</span></div>
+
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#academics">Academics</a>
+        <a href="#campus">Campus</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+        <button class="btn btn-primary">Admissions</button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Shaping Tomorrow's <span>Leaders</span></h1>
+      <p>Where academic excellence, innovation, and character development create future global citizens.</p>
+
+      <div class="hero-buttons">
+        <button class="btn btn-gold">Admissions Open</button>
+        <button class="btn btn-primary">Book a Campus Tour</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="reveal">
+    <div class="container">
+      <div class="section-title">
+        <span>ABOUT US</span>
+        <h2>A Legacy of Excellence</h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            Founded in 1985, Imperial Academy stands among the finest international schooling systems, offering a premium learning environment focused on leadership, creativity, and global excellence.
+          </p>
+
+          <p>
+            Our institution combines rigorous academics with sports, arts, technology, and emotional development to shape confident and compassionate students.
+          </p>
+
+          <button class="btn btn-primary">Explore More</button>
+        </div>
+
+        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80" alt="school">
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <i class="fa-solid fa-users"></i>
+          <h3>1250+</h3>
+          <p>Students</p>
+        </div>
+
+        <div class="stat-card">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <h3>98+</h3>
+          <p>Faculty Members</p>
+        </div>
+
+        <div class="stat-card">
+          <i class="fa-solid fa-award"></i>
+          <h3>100%</h3>
+          <p>Graduation Rate</p>
+        </div>
+
+        <div class="stat-card">
+          <i class="fa-solid fa-earth-americas"></i>
+          <h3>45+</h3>
+          <p>Nationalities</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="academics" class="programs reveal">
+    <div class="container">
+      <div class="section-title">
+        <span>ACADEMICS</span>
+        <h2>Academic Pathways</h2>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-top"></div>
+          <div class="card-content">
+            <i class="fa-solid fa-book-open"></i>
+            <h3>Elementary School</h3>
+            <p>Building strong foundations through creativity, literacy, STEM, and collaborative learning experiences.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top"></div>
+          <div class="card-content">
+            <i class="fa-solid fa-flask"></i>
+            <h3>Middle School</h3>
+            <p>Developing analytical thinking, leadership, and innovation through advanced curriculum programs.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top"></div>
+          <div class="card-content">
+            <i class="fa-solid fa-school"></i>
+            <h3>High School</h3>
+            <p>International Baccalaureate and university preparation programs with global academic standards.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="campus" class="reveal">
+    <div class="container">
+      <div class="section-title">
+        <span>CAMPUS LIFE</span>
+        <h2>Beyond Classrooms</h2>
+      </div>
+
+      <div class="campus-grid">
+        <div class="campus-card">
+          <img src="https://images.unsplash.com/photo-1577223625816-7546f13df25d?auto=format&fit=crop&w=1200&q=80">
+          <div class="campus-overlay">
+            <div>
+              <h3>Sports Complex</h3>
+              <p>Olympic pool and fitness center</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="campus-card">
+          <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=1200&q=80">
+          <div class="campus-overlay">
+            <div>
+              <h3>Performing Arts</h3>
+              <p>Music, theatre, and creative studios</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="campus-card">
+          <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?auto=format&fit=crop&w=1200&q=80">
+          <div class="campus-overlay">
+            <div>
+              <h3>Innovation Labs</h3>
+              <p>AI and robotics facilities</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="campus-card">
+          <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=80">
+          <div class="campus-overlay">
+            <div>
+              <h3>Library & Media</h3>
+              <p>Digital archives and study zones</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials reveal">
+    <div class="container">
+      <div class="section-title">
+        <span>TESTIMONIALS</span>
+        <h2>What Parents Say</h2>
+      </div>
+
+      <div class="testimonial-box">
+        <p>
+          “Imperial Academy transformed our child into a confident learner and future leader. The teachers genuinely care about student growth.”
+        </p>
+
+        <h3>— Lisa Thompson</h3>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="reveal">
+    <div class="container">
+      <div class="section-title">
+        <span>GALLERY</span>
+        <h2>Life at Imperial</h2>
+      </div>
+
+      <div class="gallery-grid">
+        <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1200&q=80">
+        <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=1200&q=80">
+        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80">
+        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80">
+        <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=1200&q=80">
+        <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80">
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="reveal">
+    <div class="container">
+      <div class="section-title">
+        <span>CONTACT US</span>
+        <h2>Visit Our Campus</h2>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div>
+            <i class="fa-solid fa-location-dot"></i>
+            <p>123 Academy Street, London, UK</p>
+          </div>
+
+          <div>
+            <i class="fa-solid fa-phone"></i>
+            <p>+44 123 456 789</p>
+          </div>
+
+          <div>
+            <i class="fa-solid fa-envelope"></i>
+            <p>admissions@imperialacademy.edu</p>
+          </div>
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2633.7751482646627!2d66.96208717367125!3d24.9151645430696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb3150070bc3d4d%3A0xa6bf1f000dc6b6f0!2sAptech%20Baldia%20town!5e1!3m2!1sen!2s!4v1779908027469!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <div class="contact-form">
+          <input type="text" placeholder="Your Name">
+          <input type="email" placeholder="Your Email">
+          <textarea rows="6" placeholder="Your Message"></textarea>
+          <button class="btn btn-primary">Send Message</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>Imperial Academy</h3>
+          <p>Excellence in Education Since 1985</p>
+        </div>
+
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li>About</li>
+            <li>Admissions</li>
+            <li>Campus Life</li>
+            <li>Gallery</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li>Student Portal</li>
+            <li>Parent Handbook</li>
+            <li>Careers</li>
+            <li>Support</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Follow Us</h4>
+          <div style="display:flex; gap:15px; font-size:22px; margin-top:15px;">
+            <i class="fab fa-facebook"></i>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-twitter"></i>
+            <i class="fab fa-linkedin"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="copyright">
+        © 2026 Imperial Academy. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <button class="chat-btn">
+    <i class="fa-solid fa-comments"></i>
+  </button>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    const reveals = document.querySelectorAll('.reveal');
+
+    function revealSections() {
+      reveals.forEach(section => {
+        const windowHeight = window.innerHeight;
+        const revealTop = section.getBoundingClientRect().top;
+
+        if(revealTop < windowHeight - 100) {
+          section.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', revealSections);
+    revealSections();
+  </script>
+
+</body>
+</html>
